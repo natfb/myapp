@@ -10,7 +10,7 @@ extend({ SSAOPass })
 
 const rfs = THREE.MathUtils.randFloatSpread
 const sphereGeometry = new THREE.SphereGeometry(0.2, 10)
-const baubleMaterial = new THREE.MeshStandardMaterial({ color: "red", roughness: 0, envMapIntensity: 0.2, emissive: "#370037" })
+const baubleMaterial = new THREE.MeshStandardMaterial({ color: "red", roughness: 0, envMapIntensity: 0.8, emissive: "#FF0000" })
 
 export const App = () => (
   <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}>
