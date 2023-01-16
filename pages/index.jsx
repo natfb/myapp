@@ -24,7 +24,7 @@ const NextPage = () => {
     
       <div className='relative h-screen bg-[#1f1fbf]'>
         <div className='relative w-screen h-screen'>
-        < Scene /></div>  
+        < Ball/></div>  
         <div className='absolute top-0 left-0 right-0 bottom-0 z-10 pointer-events-none'>
           <div className='text-center flex flex-col justify-center items-center h-screen'>
             <div className='pb-52 md:pb-24'>
@@ -34,6 +34,9 @@ const NextPage = () => {
               <div className='md:text-8xl text-7xl font-black tracking-tighter'>
                 <div className='md:-mb-4 -mb-2'>Natalia</div>
                 <div>Bla Bla Bla</div>
+              </div>
+              <div>
+                <button></button>
               </div>
             </div>
           </div>
