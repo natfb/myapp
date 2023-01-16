@@ -4,7 +4,15 @@ import Image from 'next/image'
 import Link from 'next/link'
 //import tw from 'twin.macro';
 import dynamic from 'next/dynamic';
-import Box from "/components/Balls";
+import { Physics } from "@react-three/cannon";
+import { Canvas } from "@react-three/fiber";
+import Ball from '/components/Balls'
+import Scene from '/components/Scene'
+import Track from '/components/Track'
+const Scenee = dynamic(() => import('/components/Scene'), {
+  ssr: false
+});
+
 const NextPage = () => {
   return (
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
@@ -14,19 +22,18 @@ const NextPage = () => {
       </Head>
 
     
-      <div className='relative h-screen bg-gray-600'>
+      <div className='relative h-screen bg-[#1f1fbf]'>
         <div className='relative w-screen h-screen'>
-        < Box /></div>
-        
+        < Scene /></div>  
         <div className='absolute top-0 left-0 right-0 bottom-0 z-10 pointer-events-none'>
           <div className='text-center flex flex-col justify-center items-center h-screen'>
             <div className='pb-52 md:pb-24'>
-              <div className='text-base font-extrabold text-gray-300'>
+              <div className='text-base font-extrabold text-gray-300 pt-[700px]'>
                 HI THERE I'M
               </div>
               <div className='md:text-8xl text-7xl font-black tracking-tighter'>
                 <div className='md:-mb-4 -mb-2'>Natalia</div>
-                <div>Lazuardi</div>
+                <div>Bla Bla Bla</div>
               </div>
             </div>
           </div>

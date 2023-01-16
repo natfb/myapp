@@ -1,51 +1,65 @@
-/*import * as THREE from 'three';
-import { useEffect, useRef } from 'react';
-import { useFrame, useThree, Canvas } from '@react-three/fiber';
-import { Physics, usePlane, useCompoundBody, useSphere } from '@react-three/cannon';
-import { EffectComposer, SSAO } from '@react-three/postprocessing';
+import * as THREE from "three"
+import { Canvas, extend, useFrame, useThree } from "@react-three/fiber"
+import { Physics, useSphere } from "@react-three/cannon"
+import { Sky, Environment, Effects as EffectComposer, useTexture, Shadow, meshBounds } from "@react-three/drei"
+import { SSAOPass } from "three-stdlib"
+import React, { useState, useEffect, useCallback, Suspense } from "react"
+import { a } from "@react-spring/three"
 
-const vec = new THREE.Vector3();
+extend({ SSAOPass })
 
-const baubleMaterial = new THREE.MeshLambertMaterial({
-    color: '#040307',
-    emissive: 'black'
-});
+const rfs = THREE.MathUtils.randFloatSpread
+const sphereGeometry = new THREE.SphereGeometry(0.2, 10)
+const baubleMaterial = new THREE.MeshStandardMaterial({ color: "red", roughness: 0, envMapIntensity: 0.2, emissive: "#370037" })
 
-const sphereGeometry = new THREE.Sphere(1, 8, 8);
-const baubles = [...Array(50)].map((_, i) => {
-    const args = [0.6, 0.6, 0.6, 0.8, 0.8, 1]
-    [Math.floor(Math.ramdom() * 6)]
-    return {
-        args,
-        mass: args,
-        position: [2 - Math.ramdom() * 4, 2 - Math.ramdom() * 4, args === 1 ? -args : 0],
-        angularDamping: 0.2,
-        linearDamping: 0.95
+export const App = () => (
+  <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}>
+    <ambientLight intensity={0.25} />
+    <spotLight intensity={1} angle={0.2} penumbra={1} position={[30, 30, 30]} castShadow shadow-mapSize={[512, 512]} />
+    <directionalLight intensity={5} position={[-10, -10, -10]} color="purple" />
+    <Physics gravity={[0, 0, 0]} iterations={10}>
+      <Pointer />
+      <Clump />
+    </Physics>
+    <Environment preset="night" />
+    {/*<Effects />*/}
+    {/*<Sky />*/}
+  </Canvas>
+)
+export default App
+
+function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props }) {
+  //const texture = useTexture("/cross.jpg")
+  const [ref, api] = useSphere(() => ({ args: [0.2], mass: 1, angularDamping: 0.05, linearDamping: 0.1, position: [rfs(20), rfs(20), rfs(20)] }))
+  useFrame((state) => {
+    for (let i = 0; i < 20; i++) {
+      // Get current whereabouts of the instanced sphere
+      ref.current.getMatrixAt(i, mat)
+      // Normalize the position and multiply by a negative force.
+      // This is enough to drive it towards the center-point.
+      api.at(i).applyForce(vec.setFromMatrixPosition(mat).normalize().multiplyScalar(-20).toArray(), [0, 0, 0])
     }
-})
-
-function Bauble(props) {
-    return (
-        <Canvas style={{
-            position: 'absolute',
-            top: -250,
-            zIndex: 0,
-            width: '100%',
-            height: '70%'
-        }}
-        dpr={1.5}
-        gl={{alpha: true, stencil: false, depth: false, antialias: true}}
-        camera={{position: [0, 0, 20], fov: 35, near: 10, far: 40 }}
-        onCreated={state => {
-            state.gl.toneMappingExposure = 1.5;
-          }}
-        >
-
-        </Canvas>
-    )
+  })
+  return <instancedMesh ref={ref} castShadow receiveShadow args={[null, null, 20]} geometry={sphereGeometry} material={baubleMaterial}  />
 }
-*/
 
+function Pointer() {
+  const viewport = useThree((state) => state.viewport)
+  const [, api] = useSphere(() => ({ type: "Kinematic", args: [2], position: [0, 0, 0] }))
+  return useFrame((state) => api.position.set((state.mouse.x * viewport.width /  9), (state.mouse.y * viewport.height / 9 ), 0))
+}
+
+function Effects(props) {
+  const { scene, camera } = useThree()
+  return (
+    <EffectComposer {...props}>
+      <sSAOPass args={[scene, camera, 10, 10]} kernelRadius={1.2} kernelSize={0} />
+    </EffectComposer>
+  )
+}
+
+
+/*
 import React from "react";
 import { forwardRef, useRef, useState } from "react";
 import { Canvas, useFrame } from '@react-three/fiber'
@@ -56,6 +70,8 @@ import {
   OrbitControls,
   PerspectiveCamera,
 } from "@react-three/drei";
+import { Physics, usePlane, useCompoundBody, useSphere } from '@react-three/cannon';
+import { EffectComposer, SSAO } from '@react-three/postprocessing';
 
 function Box (props) {
   // This reference gives us direct access to the THREE.Mesh object.
@@ -79,9 +95,9 @@ function Box (props) {
       onPointerOver={(event) => hover(true)}
       onPointerOut={(event) => hover(false)}
     > 
-      <sphereGeometry args={[10, 70, 40]} />      
+      <icosahedronGeometry args={[15, 0]} />      
       <meshStandardMaterial color={hovered ? 'purple' : 'orange' } />
-      <sphereGeometry position={hovered ? [-30.2, 0, -2] : [-1.2, 0, -2] } />        
+      <icosahedronGeometry position={hovered ? [-30.2, 0, -2] : [-1.2, 0, -2] } />        
     
     </mesh>
   )
@@ -100,12 +116,14 @@ export default function Three (){
     <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />      
     <pointLight position={[-10, -10, -10]} />  
     <OrbitControls target={[-2.64, -0.71, 0.03]} />    
-    <Box position={[-3.2, 0, -2]} />     
-    <Box position={[3.2, 0, -2]} />
-    <Box position={[0, 3.2, -2]} />
-    <Box position={[0, 0, 3.2]} />
-    <Box position={[0, 3, 6.2]} />
+    <Physics gravity={[0, -2.6, 0]} broadphase="SAP">
+      <Box position={[-15.2, 0, -2]} />     
+      <Box position={[15.2, 0, -2]} />
+      <Box position={[0, 15.2, -2]} />
+      <Box position={[0, 0, 50.2]} />
+      <Box position={[0, 10, 15.2]} />
+    </Physics>
     
   </Canvas>
   )
-}
+}*/
