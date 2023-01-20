@@ -32,7 +32,7 @@ function Scene( {dof} ) {
     { texture: textures[1], z: 10, factor: 0.005, scale: scaleW },
     { texture: textures[2], z: 20, scale: scaleW },
     { texture: textures[3], z: 30, ref: subject, scaleFactor: 0.83, scale: scaleN },
-    { texture: textures[4], factor: 0.03, scaleFactor: 1, z: 40, wiggle: 6, scale: scaleW },
+    { texture: textures[4], factor: 0.03, scaleFactor: 1, z: 40, wiggle: 0.06, scale: scaleW },
     { texture: textures[5], factor: 0.04, scaleFactor: 1.3, z: 49, wiggle: 1, scale: scaleW },
   ]
 
