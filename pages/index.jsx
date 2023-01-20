@@ -23,22 +23,22 @@ const NextPage = () => {
       </Head>
 
     
-      <div className='relative h-screen bg-[#1f1fbf]'>
-        <div className='relative w-screen h-screen'>
-        < Bear/></div>  
+      <div className='relative h-screen p-0'>
+        <div className='relative w-[100vw] h-[100vh] bg-gray-800 '>
+        <Ball/></div> 
+         
         <div className='absolute top-0 left-0 right-0 bottom-0 z-10 pointer-events-none'>
           <div className='text-center flex flex-col justify-center items-center h-screen'>
             <div className='pb-52 md:pb-24'>
-              <div className='text-base font-extrabold text-gray-300 pt-[700px]'>
+              <div className='text-base font-extrabold text-gray-300 pt-36'>
                 HI THERE I'M
               </div>
               <div className='md:text-8xl text-7xl font-black tracking-tighter'>
                 <div className='md:-mb-4 -mb-2'>Natalia</div>
                 <div>Bla Bla Bla</div>
               </div>
-              <div>
-                <button></button>
-              </div>
+              <div className='relative rounded-lg overflow-hidden w-[30vw] h-[30vh] bg-slate-800 z-10 mt-16'>
+              <Bear/></div>
             </div>
           </div>
         </div>

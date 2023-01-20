@@ -9,7 +9,7 @@ import { a } from "@react-spring/three"
 extend({ SSAOPass })
 
 const rfs = THREE.MathUtils.randFloatSpread
-const sphereGeometry = new THREE.SphereGeometry(0.2, 10)
+const sphereGeometry = new THREE.SphereGeometry(0.5, 10)
 const baubleMaterial = new THREE.MeshStandardMaterial({ color: "red", roughness: 0, envMapIntensity: 0.0, emissive: "#FF0000" })
 
 export const App = () => (
@@ -30,7 +30,7 @@ export default App
 
 function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props }) {
   //const texture = useTexture("/cross.jpg")
-  const [ref, api] = useSphere(() => ({ args: [0.2], mass: 1, angularDamping: 0.05, linearDamping: 0.1, position: [rfs(20), rfs(20), rfs(20)] }))
+  const [ref, api] = useSphere(() => ({ args: [0.5], mass: 1, angularDamping: 0.05, linearDamping: 0.1, position: [rfs(20), rfs(20), rfs(20)] }))
   useFrame((state) => {
     for (let i = 0; i < 50; i++) {
       // Get current whereabouts of the instanced sphere
@@ -45,7 +45,7 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
 
 function Pointer() {
   const viewport = useThree((state) => state.viewport)
-  const [, api] = useSphere(() => ({ type: "Kinematic", args: [5], position: [0, 0, 0], color: '#00FF00', emissive: "00FF00" }))
+  const [, api] = useSphere(() => ({ type: "Kinematic", args: [3], position: [0, 0, 0], color: '#00FF00', emissive: "00FF00" }))
   return useFrame((state) => api.position.set((state.mouse.x * viewport.width /  4), (state.mouse.y * viewport.height / 4 ), 0))
 }
 

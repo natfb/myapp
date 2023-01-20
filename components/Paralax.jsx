@@ -3,16 +3,10 @@ import React, { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Plane, useAspect, useTexture } from '@react-three/drei'
 import { EffectComposer, DepthOfField, Vignette } from '@react-three/postprocessing'
-import bgUrl from '../public/texture/bg.png'
-import starsUrl from '../public/texture/stars.png'
-import bearUrl from '../public/texture/bear.png'
-import leaves1Url from '../public/texture/leaves1.png'
-import leaves2Url from '../public/texture/leaves2.png'
 import './paralax-bear/layerMaterial'
 import Fireflies from './paralax-bear/Fireflies.js'
-import groundUrl from '../public/texture/ground.png'
 import Image from 'next/image'
-import { TextureLoader } from 'three/src/loaders/TextureLoader'
+
 //https://codesandbox.io/s/gpioq
 //https://codesandbox.io/s/qxjoj
 ///conetar omngodb pesq youtube
@@ -60,9 +54,9 @@ function Scene( {dof} ) {
 const Effects = React.forwardRef((props, ref) => {
   const { viewport: { width, height } } = useThree() // prettier-ignore
   return (
-    <EffectComposer multisampling={0}>
+    <EffectComposer multisampling={1}>
       <DepthOfField ref={ref} bokehScale={3} focalLength={0.1} width={(width * 5) / 2} height={(height * 5) / 2} />
-      
+      <Vignette/>
     </EffectComposer>
   )
 })
