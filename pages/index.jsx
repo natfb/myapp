@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { Physics } from "@react-three/cannon";
 import { Canvas } from "@react-three/fiber";
 import Ball from '/components/Balls'
+import Bear from '/components/Paralax'
 import Scene from '/components/Scene'
 import Track from '/components/Track'
 const Scenee = dynamic(() => import('/components/Scene'), {
@@ -24,7 +25,7 @@ const NextPage = () => {
     
       <div className='relative h-screen bg-[#1f1fbf]'>
         <div className='relative w-screen h-screen'>
-        < Ball/></div>  
+        < Bear/></div>  
         <div className='absolute top-0 left-0 right-0 bottom-0 z-10 pointer-events-none'>
           <div className='text-center flex flex-col justify-center items-center h-screen'>
             <div className='pb-52 md:pb-24'>

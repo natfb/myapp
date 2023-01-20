@@ -68,9 +68,9 @@ function Car(thirdPerson) {
 
     useEffect(() => {
        
-        result.scale.set(0.0011, 0.0011, 0.0011);
+        result.scale.set(0.0007, 0.0007, 0.0007);
 
-        result.children[0].position.set(-365, 0, -67)
+        result.children[0].position.set(-395, -50, -67)
     }, [result]);
 
     return (

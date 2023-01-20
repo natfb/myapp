@@ -10,7 +10,7 @@ extend({ SSAOPass })
 
 const rfs = THREE.MathUtils.randFloatSpread
 const sphereGeometry = new THREE.SphereGeometry(0.2, 10)
-const baubleMaterial = new THREE.MeshStandardMaterial({ color: "red", roughness: 0, envMapIntensity: 0.8, emissive: "#FF0000" })
+const baubleMaterial = new THREE.MeshStandardMaterial({ color: "red", roughness: 0, envMapIntensity: 0.0, emissive: "#FF0000" })
 
 export const App = () => (
   <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}>
@@ -37,7 +37,7 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
       ref.current.getMatrixAt(i, mat)
       // Normalize the position and multiply by a negative force.
       // This is enough to drive it towards the center-point.
-      api.at(i).applyForce(vec.setFromMatrixPosition(mat).normalize().multiplyScalar(-20).toArray(), [0, 0, 0])
+      api.at(i).applyForce(vec.setFromMatrixPosition(mat).normalize().multiplyScalar(-20).toArray(), [1000, 10000, 10000])
     }
   })
   return <instancedMesh ref={ref} castShadow receiveShadow args={[null, null, 50]} geometry={sphereGeometry} material={baubleMaterial}  />
@@ -45,8 +45,8 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
 
 function Pointer() {
   const viewport = useThree((state) => state.viewport)
-  const [, api] = useSphere(() => ({ type: "Kinematic", args: [2], position: [0, 0, 0] }))
-  return useFrame((state) => api.position.set((state.mouse.x * viewport.width /  9), (state.mouse.y * viewport.height / 9 ), 0))
+  const [, api] = useSphere(() => ({ type: "Kinematic", args: [5], position: [0, 0, 0], color: '#00FF00', emissive: "00FF00" }))
+  return useFrame((state) => api.position.set((state.mouse.x * viewport.width /  4), (state.mouse.y * viewport.height / 4 ), 0))
 }
 
 function Effects(props) {
