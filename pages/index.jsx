@@ -16,35 +16,31 @@ const Scenee = dynamic(() => import('/components/Scene'), {
 
 const NextPage = () => {
   return (
+    <>
     <div className="flex min-h-screen flex-col items-center justify-center py-2">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-    
-      <div className='relative h-screen p-0'>
-        <div className='relative w-[100vw] h-[100vh] bg-gray-800 '>
-        <Ball/></div> 
+</div>
+    <div className='fixed top-0 left-0 w-screen h-screen bg-black '>
+        <Ball/></div>
+      <div className='absolute inset-0 h-screen p-0 pb-52 md:pb-24 mt-96 text-center'>
          
-        <div className='absolute top-0 left-0 right-0 bottom-0 z-10 pointer-events-none'>
-          <div className='text-center flex flex-col justify-center items-center h-screen'>
-            <div className='pb-52 md:pb-24'>
-              <div className='text-base font-extrabold text-gray-300 pt-36'>
-                HI THERE I'M
+            
+              <div className='mb-96 text-base font-extrabold text-gray-300 '>
+                HI THERE
               </div>
-              <div className='md:text-8xl text-7xl font-black tracking-tighter'>
-                <div className='md:-mb-4 -mb-2'>Natalia</div>
-                <div>Bla Bla Bla</div>
-              </div>
-              <div className='relative rounded-lg overflow-hidden w-[30vw] h-[30vh] bg-slate-800 z-10 mt-16'>
-              <Bear/></div>
-            </div>
-          </div>
-        </div>
+
+              <div className='mt-56 text-slate-400'>
+              <p className='text-6xl font-bold tracking-tighter mb-10'>More 3D Sttuf</p>
+              <Link className='text-slate-300 decoration-none text-2xl font-medium tracking-normal z-40' target="_blank" href="/bear">Bear</Link>
+              <Link className='text-slate-300 decoration-none font-medium tracking-normal text-2xl  z-40 pl-10' target="_blank" href="/car">Car</Link>
+              </div>   
+        
       </div>
       
-
+    <div className='absolute bg-white w-full mt-96 left-0'>
       <footer className="flex h-24 w-full items-center justify-center border-t">
         <a
           className="flex items-center justify-center gap-2"
@@ -55,8 +51,8 @@ const NextPage = () => {
           Powered by{' '}
           <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
         </a>
-      </footer>
-    </div>
+      </footer></div>
+    </>
   )
 }
 

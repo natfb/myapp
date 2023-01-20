@@ -9,8 +9,10 @@ import { a } from "@react-spring/three"
 extend({ SSAOPass })
 
 const rfs = THREE.MathUtils.randFloatSpread
-const sphereGeometry = new THREE.SphereGeometry(0.5, 10)
-const baubleMaterial = new THREE.MeshStandardMaterial({ color: "red", roughness: 0, envMapIntensity: 0.0, emissive: "#FF0000" })
+const sphereGeometry = new THREE.SphereGeometry(0.5, 20)
+const sphereGeometry2 = new THREE.SphereGeometry(0.5, 20)
+const baubleMaterial = new THREE.MeshStandardMaterial({ color: "#0000bb", roughness: 0, envMapIntensity: 10, emissive: "#0000bb" })
+const baubleMaterial2 = new THREE.MeshStandardMaterial({ color: "#aa00aa", roughness: 10, envMapIntensity: 0, emissive: "#000000" })
 
 export const App = () => (
   <Canvas shadows dpr={[1, 2]} camera={{ position: [0, 0, 20], fov: 35, near: 1, far: 40 }}>
@@ -32,7 +34,7 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
   //const texture = useTexture("/cross.jpg")
   const [ref, api] = useSphere(() => ({ args: [0.5], mass: 1, angularDamping: 0.05, linearDamping: 0.1, position: [rfs(20), rfs(20), rfs(20)] }))
   useFrame((state) => {
-    for (let i = 0; i < 50; i++) {
+    for (let i = 0; i < 25; i++) {
       // Get current whereabouts of the instanced sphere
       ref.current.getMatrixAt(i, mat)
       // Normalize the position and multiply by a negative force.
@@ -40,7 +42,24 @@ function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props 
       api.at(i).applyForce(vec.setFromMatrixPosition(mat).normalize().multiplyScalar(-20).toArray(), [1000, 10000, 10000])
     }
   })
-  return <instancedMesh ref={ref} castShadow receiveShadow args={[null, null, 50]} geometry={sphereGeometry} material={baubleMaterial}  />
+
+  const [ref2, api2] = useSphere(() => ({ args: [0.5], mass: 1, angularDamping: 0.05, linearDamping: 0.1, position: [rfs(20), rfs(20), rfs(20)] }))
+  useFrame((state) => {
+    for (let i = 0; i < 25; i++) {
+      // Get current whereabouts of the instanced sphere
+      ref2.current.getMatrixAt(i, mat)
+      // Normalize the position and multiply by a negative force.
+      // This is enough to drive it towards the center-point.
+      api2.at(i).applyForce(vec.setFromMatrixPosition(mat).normalize().multiplyScalar(-20).toArray(), [1000, 10000, 10000])
+    }
+  })
+  
+  return (
+  <group>
+  <instancedMesh ref={ref} castShadow receiveShadow args={[null, null, 25]} geometry={sphereGeometry} material={baubleMaterial}  />
+  <instancedMesh ref={ref2} castShadow receiveShadow args={[null, null, 25]} geometry={sphereGeometry} material={baubleMaterial2}  />
+  </group>
+  )
 }
 
 function Pointer() {
