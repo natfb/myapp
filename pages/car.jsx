@@ -6,13 +6,8 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic';
 import { Physics } from "@react-three/cannon";
 import { Canvas } from "@react-three/fiber";
-import Ball from '/components/Balls'
-import Bear from '/components/Paralax'
-import Scene from '/components/Scene'
-import Track from '/components/Track'
-const Scenee = dynamic(() => import('/components/Scene'), {
-  ssr: false
-});
+import Scene from '/components/car-game/Scene'
+//import Track from '/components/Track'
 
 const NextPage = () => {
   return (

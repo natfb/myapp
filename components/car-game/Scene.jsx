@@ -2,6 +2,7 @@ import {
     Environment,
     OrbitControls,
     PerspectiveCamera,
+    useTexture
   } from "@react-three/drei";
 import { Suspense, useEffect, useState, forwardRef, useRef } from "react";
 //import { Car } from "./Car";
@@ -16,6 +17,22 @@ import { extend } from '@react-three/fiber'
 import Track from "./Track";
 import Ground from "./Ground";
 import Car from './Car'
+
+function Box(){
+  const colorMap = useTexture('/texture/js.png')
+  const ref = useRef()
+  return (
+<mesh ref={ref}>
+      {/* Width and height segments for displacementMap */}
+      <boxGeometry args={[1, 1, 0.1]}/>
+      <meshStandardMaterial
+        displacementScale={0.2}
+        map={colorMap}
+        
+      />
+    </mesh>
+  )
+}
 
 export default function Scene() {
     
@@ -51,14 +68,14 @@ export default function Scene() {
         <pointLight position={[-10, -10, -10]} /> */}   
         
         <OrbitControls target={[-2.64, -0.71, 0.03]} />
-        
-        
         <Physics gravity={[0, -2.6, 0]} broadphase="SAP" allowSleep = "true">
             < Track position={[0, 1, 1.2]}/>
             < Ground position={[0, 1, 1.2]}/>
             < Car thirdPerson={thirdPerson}/>
         </Physics>
+        
         </Suspense>
+       {/*} <Box position={[-10.2, 30, 30]}/>*/}
         </Canvas> 
     
     )  

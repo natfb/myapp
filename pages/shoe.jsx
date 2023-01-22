@@ -6,9 +6,8 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic';
 import { Physics } from "@react-three/cannon";
 import { Canvas } from "@react-three/fiber";
-
-import Bear from '/components/paralax-bear/Paralax'
-
+import Shoe from '/components/shoe/shoe'
+//import Track from '/components/Track'
 
 const NextPage = () => {
   return (
@@ -19,8 +18,8 @@ const NextPage = () => {
       </Head>
 
     
-    <div className='relative h-[50vh] w-[50vw] p-0'>
-    <Bear />  
+    <div className='relative h-screen w-full p-0'>
+    <Shoe />  
     </div>
     </div>
   )

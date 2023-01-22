@@ -24,8 +24,8 @@ export const App = () => (
       <Clump />
     </Physics>
     <Environment preset="night" />
-    {/*<Effects />*/}
-    {/*<Sky />*/}
+    {/*<Effects />
+    <Sky />*/}
   </Canvas>
 )
 export default App

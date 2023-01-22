@@ -6,13 +6,10 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic';
 import { Physics } from "@react-three/cannon";
 import { Canvas } from "@react-three/fiber";
-import Ball from '/components/Balls'
-import Bear from '/components/Paralax'
-import Scene from '/components/Scene'
-import Track from '/components/Track'
-const Scenee = dynamic(() => import('/components/Scene'), {
-  ssr: false
-});
+import Ball from '/components/balls/Balls'
+import Bear from '/components/paralax-bear/Paralax'
+import Scene from '/components/car-game/Scene'
+
 
 const NextPage = () => {
   return (
@@ -28,14 +25,15 @@ const NextPage = () => {
       <div className='absolute inset-0 h-screen p-0 pb-52 md:pb-24 mt-96 text-center'>
          
             
-              <div className='mb-96 text-base font-extrabold text-gray-300 '>
+              <div className='mb-96 text-base font-extrabold text-white '>
                 HI THERE
               </div>
 
-              <div className='mt-56 text-slate-400'>
+              <div className='mt-56 text-slate-100'>
               <p className='text-6xl font-bold tracking-tighter mb-10'>More 3D Sttuf</p>
-              <Link className='text-slate-300 decoration-none text-2xl font-medium tracking-normal z-40' target="_blank" href="/bear">Bear</Link>
-              <Link className='text-slate-300 decoration-none font-medium tracking-normal text-2xl  z-40 pl-10' target="_blank" href="/car">Car</Link>
+              <Link className=' decoration-none text-2xl font-medium tracking-normal z-40' target="_blank" href="/bear">Bear</Link>
+              <Link className=' decoration-none font-medium tracking-normal text-2xl  z-40 pl-10' target="_blank" href="/car">Car</Link>
+              <Link className=' decoration-none text-2xl font-medium tracking-normal z-40 pl-10' target="_blank" href="/shoe">Shoe</Link>
               </div>   
         
       </div>

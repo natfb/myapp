@@ -3,8 +3,8 @@ import React, { Suspense, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree, useLoader } from '@react-three/fiber'
 import { Plane, useAspect, useTexture } from '@react-three/drei'
 import { EffectComposer, DepthOfField, Vignette } from '@react-three/postprocessing'
-import './paralax-bear/layerMaterial'
-import Fireflies from './paralax-bear/Fireflies.js'
+import './layerMaterial'
+import Fireflies from './Fireflies.js'
 import Image from 'next/image'
 
 //https://codesandbox.io/s/gpioq
