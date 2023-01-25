@@ -1,9 +1,9 @@
 import { useRef, useState, useEffect } from "react"
 import { Canvas, useFrame } from "@react-three/fiber"
-import { useGLTF, ContactShadows, Environment, OrbitControls } from "@react-three/drei"
+import { useGLTF, ContactShadows, Environment, OrbitControls, useAnimations } from "@react-three/drei"
 import { HexColorPicker } from "react-colorful"
 import { proxy, useSnapshot } from "valtio"
-
+import Astronaut from "./Scene.jsx"
 const state = proxy({
     current: null,
     item: {
@@ -22,8 +22,12 @@ function Shoe() {
     const ref = useRef()
     const snap = useSnapshot(state)
     const {nodes, materials} = useGLTF('/models/shoe-draco.glb')
+    //const what = useGLTF('/models/scene.gltf')
+    //const { reff, actions, names } = useAnimations(what)
+    //console.log(nodes1)
     const [hovered, set] = useState(null)
-
+    
+    
     useFrame((state) => {
         const t = state.clock.getElapsedTime()
         ref.current.rotation.set(Math.cos(t / 4) / 8, Math.sin(t / 4) / 8, -0.2 - (1 + Math.sin(t / 1.5)) / 20)
@@ -38,8 +42,9 @@ function Shoe() {
             return () => (document.body.style.cursor = `url('data:image/svg+xml;base64,${btoa(auto)}'), auto`)
         }
     }, [hovered])
-    
+   
     return (
+        <>
         <group ref={ref} 
         onPointerOver={(e) => (e.stopPropagation(), set(e.object.material.name))}
         onPointerOut={(e) => e.intersections.lenght === 0 && set(null)}
@@ -54,6 +59,8 @@ function Shoe() {
         <mesh receiveShadow castShadow geometry={nodes.shoe_6.geometry} material={materials.band} material-color={snap.item.band}/> 
         <mesh receiveShadow castShadow geometry={nodes.shoe_7.geometry} material={materials.patch} material-color={snap.item.patch}/> 
         </group>
+        
+        </>
     )
 }
 

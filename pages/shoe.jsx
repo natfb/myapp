@@ -7,6 +7,7 @@ import dynamic from 'next/dynamic';
 import { Physics } from "@react-three/cannon";
 import { Canvas } from "@react-three/fiber";
 import Shoe from '/components/shoe/shoe'
+import Astronaut from '/components/shoe/astronaut'
 //import Track from '/components/Track'
 
 const NextPage = () => {
@@ -19,7 +20,8 @@ const NextPage = () => {
 
     
     <div className='relative h-screen w-full p-0'>
-    <Shoe />  
+    {/*<Shoe /> */} 
+<Astronaut />
     </div>
     </div>
   )

@@ -67,7 +67,7 @@ const useControls = (vehicleApi, chassisApi) => {
       /*if (controls.w)  chassisApi.applyLocalImpulse([0, 0,  -150], [0, 0, -150, ]);
       if (controls.a)    chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, -1]);
       if (controls.s)  chassisApi.applyLocalImpulse([0, -5, 0], [-0.5, 0, 0]);
-      if (controls.d) chassisApi.applyLocalImpulse([0, -5, 0], [+0.5, 0, 0]);*/
+      if (controls.d) chassisApi.applyLocalImpulse([0, - 5, 0], [+0.5, 0, 0]);*/
 
       if (controls.arrowdown)  chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, +1]);
       if (controls.arrowup)    chassisApi.applyLocalImpulse([0, -5, 0], [0, 0, -1]);

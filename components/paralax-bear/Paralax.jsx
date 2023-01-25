@@ -55,7 +55,7 @@ const Effects = React.forwardRef((props, ref) => {
   const { viewport: { width, height } } = useThree() // prettier-ignore
   return (
     <EffectComposer multisampling={1}>
-      <DepthOfField ref={ref} bokehScale={3} focalLength={0.1} width={(width * 5) / 2} height={(height * 5) / 2} />
+      <DepthOfField ref={ref} bokehScale={3} focalLength={0.3} width={(width * 5) / 2} height={(height * 5) / 2} />
       <Vignette/>
     </EffectComposer>
   )

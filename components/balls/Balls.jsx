@@ -31,7 +31,7 @@ export const App = () => (
 export default App
 
 function Clump({ mat = new THREE.Matrix4(), vec = new THREE.Vector3(), ...props }) {
-  //const texture = useTexture("/cross.jpg")
+  
   const [ref, api] = useSphere(() => ({ args: [0.5], mass: 1, angularDamping: 0.05, linearDamping: 0.1, position: [rfs(20), rfs(20), rfs(20)] }))
   useFrame((state) => {
     for (let i = 0; i < 25; i++) {

@@ -21,6 +21,7 @@ import Car from './Car'
 function Box(){
   const colorMap = useTexture('/texture/js.png')
   const ref = useRef()
+  const {nodes, materials} = useGLTF('/models/astronaut.glb')
   return (
 <mesh ref={ref}>
       {/* Width and height segments for displacementMap */}
