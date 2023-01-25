@@ -105,8 +105,9 @@ export default function App() {
           <Physics gravity={[0, 0, 0]} broadphase="SAP">
           <Shoe position={[0, 0, 0]}/>
           <Stars />
-          <Sparkles scale={[300, 300, 300]} color={'#FFF'}/>
+          
           </Physics>
+          <Sparkles scale={[300, 300, 300]} color={'0xFFFFFF'}/>
           <Environment preset="city" />
           <Box />
           <ContactShadows position={[0, -0.8, 0]} opacity={0.25} scale={10} blur={1.5} far={0.8} />

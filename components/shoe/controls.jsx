@@ -29,10 +29,10 @@ const useKeyboardControls = () => {
     const keyDownPressHandler = (e) => {
         let key = `"${e.code}"` == "KeyW"
         //console.log(`"${e.code}"`, "KeyW")
-        console.log("foward down", `"${e.code}"`)
+        //console.log("foward down", `"${e.code}"`)
         if(actionByKey(e.code)) {
         setControls((state) => ({ ...state, [actionByKey(e.code)]: true }));
-        console.log("foward down", actionByKey(key), actionByKey("KeyD"), `"${e.code}"`)
+        //console.log("foward down", actionByKey(key), actionByKey("KeyD"), `"${e.code}"`)
     }
     }
     const keyUpPressHandler = (e) => {
@@ -41,9 +41,27 @@ const useKeyboardControls = () => {
         }
         
     }
+
+    const swipeUpHandler = (e) => {
+        setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true, [actionByKey("KeyW")]: true}));
+    }
+    const swipeDownHandler = (e) => {
+        setControls((state) => ({ ...state, [actionByKey("KeyDown")]: true }));
+    }
+    const swipeRightHandler = (e) => {
+        setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true }));
+    }
+    const swipeLeftHandler = (e) => {
+        setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true }));
+    }
     
     window.addEventListener("keydown", keyDownPressHandler);
     window.addEventListener("keyup", keyUpPressHandler);
+    
+    window.addEventListener("onSwipedUp", swipeUpHandler);
+    window.addEventListener("onSwipedDown", swipeDownHandler);
+    window.addEventListener("onSwipedRight", swipeRightHandler);
+    window.addEventListener("onSwipedLeft", swipeLeftHandler);
     return () => {
         window.removeEventListener("keydown", keyDownPressHandler);
         window.removeEventListener("keyup", keyUpPressHandler);
