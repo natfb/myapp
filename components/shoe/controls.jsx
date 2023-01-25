@@ -44,9 +44,11 @@ const useKeyboardControls = () => {
 
     const swipeUpHandler = (e) => {
         setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true, [actionByKey("KeyW")]: true}));
+        console.log("yeah")
     }
     const swipeDownHandler = (e) => {
         setControls((state) => ({ ...state, [actionByKey("KeyDown")]: true }));
+        console.log("yeah")
     }
     const swipeRightHandler = (e) => {
         setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true }));
@@ -65,6 +67,10 @@ const useKeyboardControls = () => {
     return () => {
         window.removeEventListener("keydown", keyDownPressHandler);
         window.removeEventListener("keyup", keyUpPressHandler);
+        window.addEventListener("onSwipedUp", swipeUpHandler);
+    window.addEventListener("onSwipedDown", swipeDownHandler);
+    window.addEventListener("onSwipedRight", swipeRightHandler);
+    window.addEventListener("onSwipedLeft", swipeLeftHandler);
     }
     }, []);
     return controls
