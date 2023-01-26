@@ -29,7 +29,7 @@ const useKeyboardControls = () => {
           // NOTE: this stops the propagation of the event
           // from reaching the document swipe listeners
           event.stopPropagation();
-            console.log("sal")
+          console.log("sal")
           setBoxSwipes((s) => [
             ...s,
             { dir, timeStamp: Math.floor(event.timeStamp) }
@@ -85,17 +85,12 @@ const useKeyboardControls = () => {
     window.addEventListener("keydown", keyDownPressHandler);
     window.addEventListener("keyup", keyUpPressHandler);
     
-    window.addEventListener("onSwipedUp", swipeUpHandler);
-    window.addEventListener("onSwipedDown", swipeDownHandler);
-    window.addEventListener("onSwipedRight", swipeRightHandler);
-    window.addEventListener("onSwipedLeft", swipeLeftHandler);
+    window.addEventListener("touchmove", swipeUpHandler);
+   
     return () => {
         window.removeEventListener("keydown", keyDownPressHandler);
         window.removeEventListener("keyup", keyUpPressHandler);
-        window.addEventListener("onSwipedUp", swipeUpHandler);
-    window.addEventListener("onSwipedDown", swipeDownHandler);
-    window.addEventListener("onSwipedRight", swipeRightHandler);
-    window.addEventListener("onSwipedLeft", swipeLeftHandler);
+        
     }
     }, []);
     return controls
