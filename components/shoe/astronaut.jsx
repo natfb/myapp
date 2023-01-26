@@ -97,17 +97,17 @@ export default function App() {
   return (
       <>
         
-        <Canvas className="mt-[-100px] bg-gray-900" shadows fov={5} >
+        <Canvas className="mt-[-100px] bg-gray-900 w-[50vw] h-[50vh]" shadows fov={5} >
         <fog attach="fog" args={['#FFFFF', 10, 25]} />
           <ambientLight intensity={0.7} />
           <spotLight intensity={0.5} angle={0.1} penumbra={1} position={[10, 15, 10]} castShadow />
           
           <Physics gravity={[0, 0, 0]} broadphase="SAP">
-          <Shoe position={[0, 0, 0]}/>
-          <Stars />
+         <Shoe position={[0, 0, 0]}/>
+          {/* <Stars />*/}
           
           </Physics>
-          <Sparkles scale={[300, 300, 300]} color={'0xFFFFFF'}/>
+          <Sparkles scale={[300, 300, 300]} color={'#FFFFFF'}/>
           <Environment preset="city" />
           <Box />
           <ContactShadows position={[0, -0.8, 0]} opacity={0.25} scale={10} blur={1.5} far={0.8} />

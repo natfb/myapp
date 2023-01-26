@@ -1,3 +1,4 @@
+import { Canvas } from "@react-three/fiber";
 import { useState, useEffect } from "react";
 import {useSwipeable} from 'react-swipeable'
 function actionByKey(key) {
@@ -24,36 +25,16 @@ const useKeyboardControls = () => {
         impulseUp: false,
         impulseDown: false
      });
-     const handlersBox = useSwipeable({
-        onSwiped: ({ dir, event }) => {
-          // NOTE: this stops the propagation of the event
-          // from reaching the document swipe listeners
-          event.stopPropagation();
-          console.log("sal")
-          setBoxSwipes((s) => [
-            ...s,
-            { dir, timeStamp: Math.floor(event.timeStamp) }
-          ]);
-        },
-        // NOTE: another approach via onSwiping
-        // onSwiping: ({ event }) => event.stopPropagation(),
-        preventDefaultTouchmoveEvent: true
-      });
+     
+       
     
-      const { ref: documentRef } = useSwipeable({
-        onSwiped: ({ dir, event }) => {
-          setDocSwipes((s) => [
-            ...s,
-            { dir, timeStamp: Math.floor(event.timeStamp) }
-          ]);
-        },
-        preventDefaultTouchmoveEvent: true
-      });
+      ;
+        
      //console.log(actionByKey('keyW'))
     useEffect(() => {
     const keyDownPressHandler = (e) => {
         let key = `"${e.code}"` == "KeyW"
-        //console.log(`"${e.code}"`, "KeyW")
+        console.log(`"${e.code}"`, "KeyW")
         //console.log("foward down", `"${e.code}"`)
         if(actionByKey(e.code)) {
         setControls((state) => ({ ...state, [actionByKey(e.code)]: true }));
@@ -66,27 +47,57 @@ const useKeyboardControls = () => {
         }
         
     }
-
-    const swipeUpHandler = (e) => {
-        setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true, [actionByKey("KeyW")]: true}));
-        console.log("yeah")
-    }
-    const swipeDownHandler = (e) => {
-        setControls((state) => ({ ...state, [actionByKey("KeyDown")]: true }));
-        console.log("yeah")
-    }
-    const swipeRightHandler = (e) => {
-        setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true }));
-    }
-    const swipeLeftHandler = (e) => {
-        setControls((state) => ({ ...state, [actionByKey("KeyUp")]: true }));
-    }
     
     window.addEventListener("keydown", keyDownPressHandler);
     window.addEventListener("keyup", keyUpPressHandler);
+    //window.addEventListener("touchstart", Swipe);
     
-    window.addEventListener("touchmove", swipeUpHandler);
-   
+    var touchY = "";
+    var touchX = "";
+    var touchTreshold = 30;
+       
+    window.addEventListener("touchstart", (e) => {
+        touchY = e.changedTouches[0].pageY
+        touchX = e.changedTouches[0].pageX
+        
+    });
+    window.addEventListener("touchmove", (e) => {
+        const swipeDistanceY = e.changedTouches[0].pageY - touchY
+        const swipeDistanceX = e.changedTouches[0].pageX - touchX
+        
+        if(swipeDistanceY < -touchTreshold)  {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: true }));
+            setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: true }));
+        }
+        if(swipeDistanceY > touchTreshold)  {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: true }));
+            setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: true }));
+        }  
+        if(swipeDistanceY < -touchTreshold)  {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: true }));
+            setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: true }));
+        }
+        if(swipeDistanceY > touchTreshold)  {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: true }));
+            setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: true }));
+        } 
+        if(swipeDistanceX < -touchTreshold)  {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyA')]: true }));
+        }
+        if(swipeDistanceX > touchTreshold)  {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyD')]: true }));
+
+        }   
+    });
+    window.addEventListener("touchend", (e) => {
+        setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: false }));
+        setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: false }));        
+        setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: false }));
+        setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: false }));
+        setControls((controls) => ({ ...controls, [actionByKey('KeyA')]: false }));
+        setControls((controls) => ({ ...controls, [actionByKey('keyD')]: false }));
+    });
+    
     return () => {
         window.removeEventListener("keydown", keyDownPressHandler);
         window.removeEventListener("keyup", keyUpPressHandler);
