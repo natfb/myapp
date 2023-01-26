@@ -33,7 +33,8 @@ const NextPage = () => {
               <p className='text-6xl font-bold tracking-tighter mb-10'>More 3D Sttuf</p>
               <Link className=' decoration-none text-2xl font-medium tracking-normal z-40' target="_blank" href="/bear">Bear</Link>
               <Link className=' decoration-none font-medium tracking-normal text-2xl  z-40 pl-10' target="_blank" href="/car">Car</Link>
-              <Link className=' decoration-none text-2xl font-medium tracking-normal z-40 pl-10' target="_blank" href="/shoe">Shoe</Link>
+              <Link className=' decoration-none text-2xl font-medium tracking-normal z-40 pl-10' target="_blank" href="/shoes">Shoe</Link>
+              <Link className=' decoration-none text-2xl font-medium tracking-normal z-40 pl-10' target="_blank" href="/astronaut">Astronaut</Link>
               </div>   
         
       </div>

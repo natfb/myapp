@@ -20,8 +20,8 @@ const NextPage = () => {
 
     
     <div className='relative h-screen w-full p-0'>
-    {/*<Shoe /> */} 
-<Astronaut />
+    <Shoe /> 
+
     </div>
     </div>
   )

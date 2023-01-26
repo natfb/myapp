@@ -87,7 +87,7 @@ const useKeyboardControls = () => {
             setControls((controls) => ({ ...controls, [actionByKey('KeyD')]: true }));
            
             console.log(swipeDistanceX > touchTreshold, swipeDistanceX , touchTreshold, "dentro do touchmove D", controls)
-            swipeDistanceX = 0;
+            
         } 
         //console.log(swipeDistanceX > touchTreshold, swipeDistanceX, touchTreshold)  
    });
