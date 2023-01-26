@@ -52,56 +52,63 @@ const useKeyboardControls = () => {
     window.addEventListener("keyup", keyUpPressHandler);
     //window.addEventListener("touchstart", Swipe);
     
-    var touchY = "";
-    var touchX = "";
+    var touchY = "0";
+    var touchX = "0";
     var touchTreshold = 30;
        
     window.addEventListener("touchstart", (e) => {
         touchY = e.changedTouches[0].pageY
         touchX = e.changedTouches[0].pageX
-        
+        //console.log(e.changedTouches[0].pageX, e.changedTouches[0])
     });
     window.addEventListener("touchmove", (e) => {
         const swipeDistanceY = e.changedTouches[0].pageY - touchY
-        const swipeDistanceX = e.changedTouches[0].pageX - touchX
-        
+        var swipeDistanceX = e.changedTouches[0].pageX - touchX
+        //console.log(swipeDistanceY, swipeDistanceX)
         if(swipeDistanceY < -touchTreshold)  {
             setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: true }));
             setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: true }));
+            //console.log(swipeDistanceX , touchTreshold, "dentro do touchmove W", controls)
         }
         if(swipeDistanceY > touchTreshold)  {
             setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: true }));
             setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: true }));
+            //console.log(swipeDistanceX , touchTreshold, "dentro do touchmove S", controls)
         }  
-        if(swipeDistanceY < -touchTreshold)  {
-            setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: true }));
-            setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: true }));
-        }
-        if(swipeDistanceY > touchTreshold)  {
-            setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: true }));
-            setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: true }));
-        } 
+        //console.log(controls) 
         if(swipeDistanceX < -touchTreshold)  {
+            //console.log(swipeDistanceX < -touchTreshold, swipeDistanceX, -touchTreshold, controls)
             setControls((controls) => ({ ...controls, [actionByKey('KeyA')]: true }));
+            console.log(swipeDistanceX , touchTreshold, "dentro do touchmove A", controls)
         }
+        
         if(swipeDistanceX > touchTreshold)  {
+            
             setControls((controls) => ({ ...controls, [actionByKey('KeyD')]: true }));
-
-        }   
-    });
+           
+            console.log(swipeDistanceX > touchTreshold, swipeDistanceX , touchTreshold, "dentro do touchmove D", controls)
+            swipeDistanceX = 0;
+        } 
+        //console.log(swipeDistanceX > touchTreshold, swipeDistanceX, touchTreshold)  
+   });
+    //console.log(controls) 
     window.addEventListener("touchend", (e) => {
+        //console.log("dentro do touchsend 1", controls)
         setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: false }));
-        setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: false }));        
         setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: false }));
+        setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('KeyA')]: false }));
-        setControls((controls) => ({ ...controls, [actionByKey('keyD')]: false }));
-    });
-    
+        setControls((controls) => ({ ...controls, [actionByKey('KeyD')]: false }));
+       // console.log("dentro do touchsend 2", controls)
+    }); 
+    //console.log("fora dos events list", controls)
     return () => {
         window.removeEventListener("keydown", keyDownPressHandler);
         window.removeEventListener("keyup", keyUpPressHandler);
-        
+        window.removeEventListener("touchstart", (e) => {})
+        window.removeEventListener("touchmove", (e) => {})
+        window.removeEventListener("touchend",  (e) => {})
     }
     }, []);
     return controls
