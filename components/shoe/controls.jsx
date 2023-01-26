@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+import {useSwipeable} from 'react-swipeable'
 function actionByKey(key) {
     const keys = {
         KeyW: "moveForward",
@@ -24,6 +24,31 @@ const useKeyboardControls = () => {
         impulseUp: false,
         impulseDown: false
      });
+     const handlersBox = useSwipeable({
+        onSwiped: ({ dir, event }) => {
+          // NOTE: this stops the propagation of the event
+          // from reaching the document swipe listeners
+          event.stopPropagation();
+            console.log("sal")
+          setBoxSwipes((s) => [
+            ...s,
+            { dir, timeStamp: Math.floor(event.timeStamp) }
+          ]);
+        },
+        // NOTE: another approach via onSwiping
+        // onSwiping: ({ event }) => event.stopPropagation(),
+        preventDefaultTouchmoveEvent: true
+      });
+    
+      const { ref: documentRef } = useSwipeable({
+        onSwiped: ({ dir, event }) => {
+          setDocSwipes((s) => [
+            ...s,
+            { dir, timeStamp: Math.floor(event.timeStamp) }
+          ]);
+        },
+        preventDefaultTouchmoveEvent: true
+      });
      //console.log(actionByKey('keyW'))
     useEffect(() => {
     const keyDownPressHandler = (e) => {
