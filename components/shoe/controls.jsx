@@ -47,33 +47,35 @@ const useKeyboardControls = () => {
         }
         
     }
-    
-    window.addEventListener("keydown", keyDownPressHandler);
-    window.addEventListener("keyup", keyUpPressHandler);
-    //window.addEventListener("touchstart", Swipe);
-    
+
     var touchY = "0";
     var touchX = "0";
     var touchTreshold = 30;
-       
-    window.addEventListener("touchstart", (e) => {
+
+    const swipeStartHandler = (e) => {
         touchY = e.changedTouches[0].pageY
         touchX = e.changedTouches[0].pageX
-        //console.log(e.changedTouches[0].pageX, e.changedTouches[0])
-    });
-    window.addEventListener("touchmove", (e) => {
+        
+    }
+    const swipeMoveHandler = (e) => {
         const swipeDistanceY = e.changedTouches[0].pageY - touchY
         var swipeDistanceX = e.changedTouches[0].pageX - touchX
         //console.log(swipeDistanceY, swipeDistanceX)
         if(swipeDistanceY < -touchTreshold)  {
             setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: true }));
-            setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: true }));
+            
             //console.log(swipeDistanceX , touchTreshold, "dentro do touchmove W", controls)
+        }else if(swipeDistanceY < -touchTreshold && e.touches.length > 1) {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: true }));
+            setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: true }));
         }
         if(swipeDistanceY > touchTreshold)  {
             setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: true }));
-            setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: true }));
+    
             //console.log(swipeDistanceX , touchTreshold, "dentro do touchmove S", controls)
+        }else if(swipeDistanceY > touchTreshold && e.touches.length > 1) {
+            setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: true }));
+            setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: true }));
         }  
         //console.log(controls) 
         if(swipeDistanceX < -touchTreshold)  {
@@ -89,26 +91,32 @@ const useKeyboardControls = () => {
             console.log(swipeDistanceX > touchTreshold, swipeDistanceX , touchTreshold, "dentro do touchmove D", controls)
             
         } 
-        //console.log(swipeDistanceX > touchTreshold, swipeDistanceX, touchTreshold)  
-   });
-    //console.log(controls) 
-    window.addEventListener("touchend", (e) => {
-        //console.log("dentro do touchsend 1", controls)
+    }
+    const swipeEndHandler = (e) => {
         setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('KeyA')]: false }));
-        setControls((controls) => ({ ...controls, [actionByKey('KeyD')]: false }));
-       // console.log("dentro do touchsend 2", controls)
-    }); 
+        setControls((controls) => ({ ...controls, [actionByKey('KeyD')]: false }));  
+    }
+
+    window.addEventListener("keydown", keyDownPressHandler);
+    window.addEventListener("keyup", keyUpPressHandler);
+    //window.addEventListener("touchstart", Swipe);
+    
+    
+       
+    window.addEventListener("touchstart", swipeStartHandler);
+    window.addEventListener("touchmove", swipeMoveHandler );
+    window.addEventListener("touchend", swipeEndHandler); 
     //console.log("fora dos events list", controls)
     return () => {
         window.removeEventListener("keydown", keyDownPressHandler);
         window.removeEventListener("keyup", keyUpPressHandler);
-        window.removeEventListener("touchstart", (e) => {})
-        window.removeEventListener("touchmove", (e) => {})
-        window.removeEventListener("touchend",  (e) => {})
+        window.removeEventListener("touchstart",swipeStartHandler)
+        window.removeEventListener("touchmove", swipeMoveHandler)
+        window.removeEventListener("touchend",  swipeEndHandler)
     }
     }, []);
     return controls

@@ -8,7 +8,7 @@ import { proxy, useSnapshot } from "valtio"
 import Astronaut from "./Scene.jsx"
 import useKeyboardControls from "./controls"
 import { Vector3, Quaternion } from "three";
-import {random }from 'maath'
+
 //keyboard controls stuff
 function Shoe(props) {
     const ref = useRef()
@@ -45,7 +45,7 @@ function Shoe(props) {
       */
 
       const frontVector = new Vector3(0, 0,
-        (- (moveForward ? 1 : 0) + (moveBackward ? 1 : 0)))
+        (- (moveForward ? 2 : 0) + (moveBackward ? 2 : 0)))
       
       const sideVector = new Vector3( + (moveLeft ? 1 : 0) - (moveRight ? 1 : 0), 0, 0)
       direction
@@ -56,7 +56,7 @@ function Shoe(props) {
       
       const upVector = new Vector3(0,
         ( (impulseUp ? 1 : 0) - (impulseDown ? 1 : 0)), 0)
-      chassisApi.velocity.set(direction.x, upVector.y, direction.z)
+      chassisApi.velocity.set(direction.x * 2, upVector.y * 2, direction.z * 2)
         //camera.position.set(direction.x, velocity.current[1], direction.z)
       //console.log(chassisBody.current.position)
       
@@ -67,11 +67,11 @@ function Shoe(props) {
       let quaternion = new Quaternion(0, 0, 0, 0);
       quaternion.setFromRotationMatrix(chassisBody.current.matrixWorld);
   
-      let wDir = new Vector3(0,0,1);
+      let wDir = new Vector3(0, 0, 1);
       wDir.applyQuaternion(quaternion);
       wDir.normalize();
   
-      let cameraPosition = position.clone().add(wDir.clone().multiplyScalar(1).add(new Vector3(0, 0.3, 0)));
+      let cameraPosition = position.clone().add(wDir.clone().multiplyScalar(2).add(new Vector3(0, 0.1, 0)));
       
      wDir.add(new Vector3(0, 0.0, 0));
      state.camera.position.copy(cameraPosition);
@@ -104,7 +104,7 @@ export default function App() {
           
           <Physics gravity={[0, 0, 0]} broadphase="SAP">
          <Shoe position={[0, 0, 0]}/>
-          {/* <Stars />*/}
+          <Stars />
           
           </Physics>
           <Sparkles scale={[300, 300, 300]} color={'#FFFFFF'}/>

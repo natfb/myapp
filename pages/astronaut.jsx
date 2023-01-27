@@ -19,7 +19,7 @@ const NextPage = () => {
       </Head>
 
     
-    <div className='relative h-screen w-full p-0'>
+    <div className='relative h-[50vh] w-full p-0'>
     
 <Astronaut />
     </div>
