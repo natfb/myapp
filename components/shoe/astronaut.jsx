@@ -56,7 +56,7 @@ function Shoe(props) {
       
       const upVector = new Vector3(0,
         ( (impulseUp ? 1 : 0) - (impulseDown ? 1 : 0)), 0)
-      chassisApi.velocity.set(direction.x * 2, upVector.y * 2, direction.z * 2)
+      chassisApi.velocity.set(direction.x * 3, upVector.y * 3, direction.z * 3)
         //camera.position.set(direction.x, velocity.current[1], direction.z)
       //console.log(chassisBody.current.position)
       
@@ -107,7 +107,7 @@ export default function App() {
           <Stars />
           
           </Physics>
-          <Sparkles scale={[300, 300, 300]} color={'#FFFFFF'}/>
+          <Sparkles scale={[300, 300, 300]} />
           <Environment preset="city" />
           <Box />
           <ContactShadows position={[0, -0.8, 0]} opacity={0.25} scale={10} blur={1.5} far={0.8} />
