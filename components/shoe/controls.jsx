@@ -140,7 +140,7 @@ console.log("salj")
                 setControls((controls) => ({ ...controls, [actionByKey('KeyW')]: true   }));
             }
         }
-            setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: false }));
+        setControls((controls) => ({ ...controls, [actionByKey('KeyS')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('ArrowUp')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('ArrowDown')]: false }));
         setControls((controls) => ({ ...controls, [actionByKey('KeyA')]: false }));
