@@ -23,8 +23,8 @@ export const App = () => (
       <Pointer />
       <Clump />
     </Physics>
-    <Environment preset="night" />
-    {/*<Effects />
+    {/*<Environment preset="night" />
+    <Effects />
     <Sky />*/}
   </Canvas>
 )
