@@ -25,4 +25,9 @@ const NextPage = () => {
   )
 }
 
-export default NextPage
+
+function whats()
+{
+
+}
+export default whats//NextPage
