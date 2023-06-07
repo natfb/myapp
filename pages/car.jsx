@@ -30,4 +30,4 @@ function whats()
 {
 
 }
-export default whats//NextPage
+export default NextPage

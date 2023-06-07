@@ -31,10 +31,7 @@ function Ground() {
         "/texture/alpha-map.png"
       );
 
-      /*const envMap = useLoader(
-        TextureLoader,
-        "/texture/envmap.hdr"
-      );*/
+      
       const meshRef = useRef(null);
       const meshRef2 = useRef(null);
     
