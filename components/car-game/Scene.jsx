@@ -60,9 +60,9 @@ export default function Scene() {
         <color attach="background" args={['#1f1fbf']} />
         
         <Suspense fallback={null}>
-        <Environment
+        {/*<Environment
             preset="night"
-        />
+  />*/}
         <PerspectiveCamera makeDefault position={cameraPosition} fov={40} />
         <ambientLight intensity={0.5} />    
         {/*<spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />      
