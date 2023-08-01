@@ -108,7 +108,7 @@ export default function App() {
           
           </Physics>
           <Sparkles scale={[300, 300, 300]} />
-          <Environment preset="city" />
+          {/*<Environment preset="city" />*/}
           <Box />
           <ContactShadows position={[0, -0.8, 0]} opacity={0.25} scale={10} blur={1.5} far={0.8} />
           <OrbitControls />
